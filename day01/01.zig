@@ -42,5 +42,27 @@ pub fn main() !void {
         dist = dist + @abs(left - right);
     }
 
-    std.log.info("Distens between lists: {d}", .{dist});
+    std.log.info("Distance between lists: {d}", .{dist});
+
+    // Difference hoeveel komt value uit lijst 1 in lijst 2 voor (value * amount in 2).
+
+    // Eerst per nummer bekijken hoevaak hij voorkomt?
+    var counts: [100_000]u8 = undefined;   // 5 nums so max 100.000
+    
+    @memset(&counts, 0);
+
+    for (right_list.items) | num | {
+        counts[@intCast(num)] = counts[@intCast(num)] + 1;
+    }
+     
+var similarity: i32 = 0;
+
+    // Daarna opzoeken per waarden?
+    for (left_list.items) | num | {
+        similarity = similarity + (num * counts[@intCast(num)]);
+    }
+
+    std.log.info("Similarity between lists: {d}", .{similarity});
+
+    // Anders loop ik per nummer door de lijst, lijkt mij enorm lang te duren...
 }
